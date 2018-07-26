@@ -1,0 +1,87 @@
+﻿<Window x:Class="MaterialAlarm.AddAlarm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        Title="Add Alarm"
+        Height="400"
+        Width="400"
+        Icon="icon.png"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded"        
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto">
+    <Grid>
+        <Canvas Background="#00B5B5" Opacity="0.4"></Canvas>
+        <Rectangle x:Name="TopRectangle" Fill="#512DA8" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="400" MouseDown="MoveWindow"/>
+        <materialDesign:PackIcon Grid.ZIndex="2" Kind="CloseBox" Margin="370,6,0,0" Foreground="#fff" MouseUp="CloseBtn" Cursor="Hand" Height="24" Width="24" />
+        <TextBox
+            Text="Alarm Name" Margin="10,57,290,319" Opacity="0.6">
+            <TextBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Header="Hello World" />
+                    <MenuItem
+                        Header="Clickety Click">
+                        <MenuItem
+                            Header="Clackety Clack" />
+                    </MenuItem>
+                </ContextMenu>
+            </TextBox.ContextMenu>
+        </TextBox>
+        <materialDesign:TimePicker
+            Width="100"
+            Style="{StaticResource MaterialDesignFloatingHintTimePicker}"
+            materialDesign:HintAssist.Hint="Time" Margin="10,94,290,0" />
+        <DatePicker
+            Width="100"
+            materialDesign:HintAssist.Hint="Pick Date"
+            Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Margin="10,132,290,243" />
+        <ComboBox
+            Name="ChooseDay" ToolTip="Day" Margin="10,178,290,195">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+        <ComboBox
+            x:Name="ChooseDay_Copy" ToolTip="repeat" Margin="10,230,290,142">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+        <ComboBox
+            x:Name="ChooseDay_Copy1" ToolTip="Sound" Margin="10,279,290,94">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+        <materialDesign:PackIcon MouseUp="AddNewAlarm" Cursor="Hand" ToolTip="Add" Kind="ContentSave" Height="50" Width="50" Margin="340,340,0,0" Foreground="#456767" />
+        <ComboBox
+            x:Name="ChooseDay_Copy2" ToolTip="SnoozeTime" Margin="10,328,290,46">
+            <ComboBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <VirtualizingStackPanel />
+                </ItemsPanelTemplate>
+            </ComboBox.ItemsPanel>
+        </ComboBox>
+        <materialDesign:PackIcon Cursor="Hand" ToolTip="Cancel" Kind="CloseBox" Height="50" Width="50" Margin="285,340,0,0" Foreground="#456767" />
+        <DockPanel x:Name="PopUpDock" Background="#EEEEEE" Margin="110,136,100,94" Visibility="Hidden" RenderTransformOrigin="0.5,0.5">
+
+            <Popup x:Name="POpUp" Placement="Center" IsOpen="False" AllowsTransparency="True" PopupAnimation="Slide"+>
+                <TextBlock>text</TextBlock>
+            </Popup>
+        </DockPanel>
+    </Grid>
+</Window>

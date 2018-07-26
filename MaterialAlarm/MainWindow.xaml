@@ -1,12 +1,146 @@
 ﻿<Window x:Class="MaterialAlarm.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MaterialAlarm"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:addon="http://schemas.landmarkdevs.com/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{StaticResource MaterialDesignFont}"
+        Title="Material Alarm"
+        Height="650"
+        Width="600"
+        Icon="icon.png"
+        WindowStyle="None"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded"        
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto">
+    <Grid x:Name="MainGrid">
+        <Grid x:Name="Grid">
+            <Canvas x:Name="MainCanvas" Grid.ZIndex="1"/>
+            <Rectangle x:Name="TopRectangle" Fill="#512DA8" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="600" MouseDown="MoveWindow"/>
+            <Canvas x:Name="AlarmCanvas" Margin="10,109,10,473" Background="#E7E7E7" Grid.ZIndex="2">
+                <ToggleButton
+                    Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                    ToolTip="Avtive Alarm"
+                    Canvas.Left="504" Canvas.Top="27"
+                    Cursor="Hand">
+                    <materialDesign:PackIcon
+                        Kind="Cancel"
+                        RenderTransformOrigin=".5,.5">
+                        <materialDesign:PackIcon.RenderTransform>
+                            <RotateTransform
+                                Angle="45" />
+                        </materialDesign:PackIcon.RenderTransform>
+                    </materialDesign:PackIcon>
+                    <materialDesign:ToggleButtonAssist.OnContent>
+                        <materialDesign:PackIcon
+                            Kind="Clock" />
+                    </materialDesign:ToggleButtonAssist.OnContent>
+                </ToggleButton>
+                <TextBlock
+                    Style="{StaticResource MaterialDesignTitleTextBlock}" Canvas.Top="25" Canvas.Left="10" ToolTip="Time">
+                    17:20
+                </TextBlock>
+                <TextBlock
+                    Style="{StaticResource MaterialDesignBody1TextBlock}" Canvas.Left="75" Canvas.Top="29" ToolTip="Day">
+                    sunday
+                </TextBlock>
+            </Canvas>
+            <Grid Grid.ZIndex="2">
+                <ListBox
+                    IsEnabled="{Binding IsChecked, ElementName=EnableListBox}" Margin="-210,109,600,10"
+                    Background="#E7E7E7"
+                    Visibility="Hidden"                    
+                    x:Name="LeftList">
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}" FontSize="24" Cursor="Hand">
+                        <materialDesign:PackIcon Kind="AlarmBell" Height="29" Width="29" Foreground="#512DA8" />
+                        Alarm
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}" FontSize="24" Cursor="Hand">
+                        <materialDesign:PackIcon Kind="Timer" Height="29" Width="29" Foreground="#512DA8" />
+                        Timer
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}" FontSize="24" Cursor="Hand">
+                        <materialDesign:PackIcon Kind="CameraTimer" Height="29" Width="29" Foreground="#512DA8" />
+                        StopWatch
+                    </TextBlock>
+                    <TextBlock Style="{StaticResource MaterialDesignDisplay3TextBlock}" FontSize="24" Cursor="Hand">
+                        <materialDesign:PackIcon Kind="GoogleEarth" Height="29" Width="29" Foreground="#512DA8" />
+                        WorldClock
+                    </TextBlock>
+                </ListBox>
+            </Grid>
+            <Button
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Cursor="Hand"
+                ToolTip="Add Alarm" Margin="538,588,12,12"
+                Grid.ZIndex="2"
+                materialDesign:ShadowAssist.ShadowDepth="Depth3" Height="Auto" Width="Auto"
+                Click="AddAlarmBtn">
+                <materialDesign:PackIcon
+                    Kind="Alarm"
+                    Height="30"
+                    Width="30" />
+            </Button>
+            <materialDesign:ColorZone
+            Mode="PrimaryDark"
+            Grid.ZIndex="3"
+            Padding="16" Margin="0,35,0,0"
+            materialDesign:ShadowAssist.ShadowDepth="Depth3"
+            x:Name="TopMenu">
+                <DockPanel>
+                    <materialDesign:PopupBox
+                    Cursor="Hand"
+                    DockPanel.Dock="Right"
+                    PlacementMode="BottomAndAlignRightEdges">
+                        <ListBox>
+                            <ListBoxItem MouseUp="SelecAllAlarm">
+                                Select all
+                            </ListBoxItem>
+                            <Separator/>
+                            <ListBoxItem MouseUp="ShowSite">
+                                Site
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                Source
+                            </ListBoxItem>
+                            <ListBoxItem>
+                                About
+                            </ListBoxItem>
+                        </ListBox>
+                    </materialDesign:PopupBox>
+                    <ToggleButton
+                    Style="{StaticResource MaterialDesignSwitchAccentToggleButton}"
+                    ToolTip="Change Color"
+                    x:Name="ChangeColor"
+                    VerticalAlignment="Center"
+                    DockPanel.Dock="Right"
+                    Click="ColorChangeToggleButton"/>
+                    <StackPanel
+                    Orientation="Horizontal">
+                        <ToggleButton
+                        Cursor="Hand"
+                        Style="{DynamicResource MaterialDesignHamburgerToggleButton}"
+                        Click="SHowListBtn"/>
+                        <TextBlock
+                        VerticalAlignment="Center"
+                        Margin="16 0 0 0">
+                        Material Windows Alarm
+                        </TextBlock>
+                    </StackPanel>
+                </DockPanel>
+            </materialDesign:ColorZone>
+            <GridSplitter HorizontalAlignment="Left" Height="2" Margin="10,24,0,0" VerticalAlignment="Top" Width="576" Background="#FFFAFAFA" />
+            <Image Source="icon.png" HorizontalAlignment="Left" Height="25" Margin="10,0,0,0" VerticalAlignment="Top" Width="25"/>
+            <materialDesign:PackIcon Grid.ZIndex="2" Kind="CloseBox" Margin="564,0,0,0" Foreground="#fff" MouseUp="CloseBtn" Cursor="Hand" Height="24" Width="24" />
+            <materialDesign:PackIcon Grid.ZIndex="2" Kind="ArrowDownBoldBox" Margin="535,0,0,0" Foreground="#fff" MouseUp="MiniBtn" Cursor="Hand" Height="24" Width="24" />
+        </Grid>
     </Grid>
+    
+
 </Window>
