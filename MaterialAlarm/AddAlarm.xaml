@@ -18,7 +18,7 @@
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto">
     <Grid>
-        <Canvas Background="#00B5B5" Opacity="0.4"></Canvas>
+        <Canvas Background="#FFEDEEE1" Opacity="0.4"></Canvas>
         <Rectangle x:Name="TopRectangle" Fill="#512DA8" HorizontalAlignment="Left" Height="35" VerticalAlignment="Top" Width="400" MouseDown="MoveWindow"/>
         <materialDesign:PackIcon Grid.ZIndex="2" Kind="CloseBox" Margin="370,6,0,0" Foreground="#fff" MouseUp="CloseBtn" Cursor="Hand" Height="24" Width="24" />
         <TextBox
@@ -79,7 +79,7 @@
         <materialDesign:PackIcon Cursor="Hand" ToolTip="Cancel" Kind="CloseBox" Height="50" Width="50" Margin="285,340,0,0" Foreground="#456767" />
         <DockPanel x:Name="PopUpDock" Background="#EEEEEE" Margin="110,136,100,94" Visibility="Hidden" RenderTransformOrigin="0.5,0.5">
 
-            <Popup x:Name="POpUp" Placement="Center" IsOpen="False" AllowsTransparency="True" PopupAnimation="Slide"+>
+            <Popup x:Name="POpUp" Placement="Center" IsOpen="False" AllowsTransparency="True" PopupAnimation="Slide">
                 <TextBlock>text</TextBlock>
             </Popup>
         </DockPanel>
